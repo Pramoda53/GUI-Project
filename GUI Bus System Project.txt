@@ -1,0 +1,239 @@
+
+from tkinter import *
+import random
+
+LARGEFONT =("Verdana",30)
+
+def var_states():
+    if ((var1.get()==1 and var2.get()==1)or(var1.get()==1 and var3.get()==1)or(var3.get()==1 and var2.get()==1)or(var1.get()==1 and var2.get()==1 and var3.get()==1)):
+        print("Please select only one type either seater or semi-sleeper or sleeper")
+    elif var1.get()==1:
+        if var4.get()==1 and var5.get()==1:
+            print("Please select only one condition either A/C or Non A/C")
+        elif var4.get()==1:
+            print("The type of bus you selected is seater with A/C")
+        elif var5.get()==1:
+            print("The type of bus you selected is seater with Non A/C")
+    elif var2.get()==1:
+        if var4.get()==1 and var5.get()==1:
+            print("Please select only one condition")
+        elif var4.get()==1:
+            print("The type of bus you selected is semi-sleeper with A/C")
+        elif var5.get()==1:
+            print("The type of bus you selected is semi-sleeper with Non A/C")
+    elif var3.get()==1:
+        if var4.get()==1 and var5.get()==1:
+            print("Please select only one condition")
+        elif var4.get()==1:
+            print("The type of bus you selected is sleeper with A/C")
+        elif var5.get()==1:
+            print("The type of bus you selected is sleeper with Non A/C")
+    if var6.get()==0 and var7.get()==0 and var8.get()==0 and var9.get()==0 and var10.get()==0 and var11.get()==0 and var12.get()==0:
+        print("Select your required amenities")
+    else:
+        print("Amenities you selected for your journey are:")
+        if var6.get()==1:
+            print("Wifi")
+        if var7.get()==1:
+            print("Water Bottle")
+        if var8.get()==1:
+            print("Blankets")
+        if var9.get()==1:
+            print("Movie")
+        if var10.get()==1:
+            print("Charging Point")
+        if var11.get()==1:
+            print("Track My Bus")
+        if var12.get()==1:
+            print("Emergency Contact Numbers")
+
+def var_states1():
+    if( (e1.get()>='a' and e1.get()<='z') or (e1.get()>='A' and e1.get()<='Z')):
+        print("Name of the Passenger:",e1.get())
+    else:
+        print("Please enter valid information")
+        
+    if ((var4.get()==1 and var5.get()==1)or(var4.get()==1 and var6.get()==1)or(var6.get()==1 and var5.get()==1)or(var4.get()==1 and var5.get()==1 and var6.get()==1)):
+        print("Please select only one option")
+    elif var4.get()==1:
+        print("Gender of the Passenger:Male")
+    elif var5.get()==1:
+        print("Gender of the Passenger:Female")
+    elif var6.get()==1:
+        print("Gender of the Passenger:Trans")
+    
+    if (e3.get()>="0" and e3.get()<="200" ):
+        print("Age of the Passenger:",e3.get())
+    else:
+        print("Please enter valid information")
+
+    if len(e4.get())==10 and int(e4.get())>=1000000000 and int(e4.get())<=9999999999:
+        print("Phone number of the Passenger:",e4.get())
+    else:
+        print("Please enter valid information")
+
+def sleeper():
+    return 16
+def semisleeper():
+    return 52
+def windowseats(n):
+
+    t=int(input("number of passengers: "))
+    for i in range(t):
+        number=random.choice(               
+             [i for i in range(1,n) if i%2!=0]
+        )
+        print("the window seat number for ",i+1," person is" +str(number))
+            
+def randomseats(n):
+    t=int(input("number of passengers: "))
+    for  i in range(t):
+        a=random.randint(1,n)
+        print("your seat number of ",i+1,"person is " +str(a))
+
+
+def DriverDetails():
+    new_window=Toplevel(root)
+    new_window.title('Driver Details')
+    new_window.geometry('500x500')
+    new_window.resizable(False,False)
+    
+    driver = random.randint(1, 5)
+    if driver == 1:
+        f = open("driver1.txt", "r")
+    elif driver == 2:
+        f = open("driver2.txt", "r")
+    elif driver == 3:
+        f = open("driver3.txt", "r")
+    elif driver == 4:
+        f = open("driver4.txt", "r")
+    elif driver == 5:
+        f = open("driver5.txt", "r")
+        
+    lbl=Label(new_window,text=f.read(),font=LARGEFONT)
+    lbl.pack()
+    
+    btn1=Button(new_window,text='Back',command=lambda:new_window.destroy())
+    btn1.pack()
+
+def BusType():
+    new_window=Toplevel(root)
+    new_window.title('Bus Type')
+    new_window.geometry('500x500')
+    new_window.resizable(False,False)
+    global var1
+    global var2
+    global var3
+    global var4
+    global var5
+    global var6
+    global var7
+    global var8
+    global var9
+    global var10
+    global var11
+    global var12
+
+    Label(new_window, text="Bus type",font=("Times New Roman Italic",13)).grid(row=0, sticky=W)
+    var1 = IntVar()
+    Checkbutton(new_window, text="seater", variable=var1).grid(row=1, sticky=W)
+    var2 = IntVar()
+    Checkbutton(new_window, text="semi-sleeper", variable=var2).grid(row=2, sticky=W)
+    var3 = IntVar()
+    Checkbutton(new_window, text="sleeper", variable=var3).grid(row=3, sticky=W)
+
+    Label(new_window, text="Bus condition",font=("Times New Roman Italic",13)).grid(row=4, sticky=W)
+    var4 = IntVar()
+    Checkbutton(new_window, text="A/C", variable=var4).grid(row=5, sticky=W)
+    var5 = IntVar()
+    Checkbutton(new_window, text="Non A/C", variable=var5).grid(row=6, sticky=W)
+
+    Label(new_window, text="Amenities",font=("Times New Roman Italic",13)).grid(row=7, sticky=W)
+    var6 = IntVar()
+    Checkbutton(new_window, text="Wifi", variable=var6).grid(row=8,column=0 ,sticky=W)
+    var7 = IntVar()
+    Checkbutton(new_window, text="Water Bottle", variable=var7).grid(row=8,column=1, sticky=W)
+    var8 = IntVar()
+    Checkbutton(new_window, text="Blankets", variable=var8).grid(row=9,column=0, sticky=W)
+    var9= IntVar()
+    Checkbutton(new_window, text="Movie", variable=var9).grid(row=9,column=1, sticky=W)
+    var10 = IntVar()
+    Checkbutton(new_window, text="Charging Point", variable=var10).grid(row=10,column=0, sticky=W)
+    var11= IntVar()
+    Checkbutton(new_window, text="Track My Bus", variable=var11).grid(row=10,column=1, sticky=W)
+    var12= IntVar()
+    Checkbutton(new_window, text="Emergency Contact Numbers", variable=var12).grid(row=11, sticky=W)
+
+    Button(new_window, text='Display', command=var_states).grid(row=13, sticky=W, pady=4)
+    Button(new_window, text='Back', command=lambda:new_window.destroy()).grid(row=14, sticky=W, pady=4)
+
+
+def PassengerDetails():
+    new_window=Toplevel(root)
+    new_window.title('Bus Type')
+    new_window.geometry('500x500')
+    new_window.resizable(False,False)
+    
+    global var4
+    global var5
+    global var6
+    global e1
+    global e2
+    global e3
+    global e4
+    
+    Button(new_window, text='Display', command=var_states1).grid(row=12, sticky=W, pady=4)
+    Button(new_window, text='Back', command=lambda:new_window.destroy()).grid(row=13, sticky=W, pady=4)
+
+    Label(new_window, text="Enter your details",font=("Times New Roman Italic",13)).grid(row=4, sticky=W)
+    Label(new_window, text="Enter your name").grid(row=5,sticky=W)
+    Label(new_window, text="Select your gender").grid(row=6, sticky=W)
+    var4= IntVar()
+    Checkbutton(new_window, text="Male", variable=var4).grid(row=7, sticky=W)
+    var5 = IntVar()
+    Checkbutton(new_window, text="Female", variable=var5).grid(row=8, sticky=W)
+    var6 = IntVar()
+    Checkbutton(new_window, text="Trans", variable=var6).grid(row=9, sticky=W)
+    Label(new_window, text="Enter your age").grid(row=10,sticky=W)
+    Label(new_window, text="Enter your phone number").grid(row=11,sticky=W)
+
+
+    e1 = Entry(new_window)
+    e2 = Entry(new_window)
+    e3 = Entry(new_window)
+    e4 = Entry(new_window)
+    
+    e1.grid(row=5, column=2)
+    e3.grid(row=10, column=2)
+    e4.grid(row=11, column=2)
+
+
+def choice():
+    new_window=Toplevel(root)
+    new_window.title('Bus Type')
+    new_window.geometry('500x500')
+    new_window.resizable(False,False)
+    
+    if var2.get()==1:
+        n=sleeper()
+    elif var3.get()==1:
+        n=semisleeper()
+    
+    Label(new_window,text="Seat selection",font=("Times new Roman Italic",13)).grid(row=0, sticky=W)   
+    Button(new_window,text="window seats",command=lambda: windowseats(n)).grid(row=1, sticky=W)    
+    Button(new_window,text="random seats",command=lambda:randomseats(n)).grid(row=2,sticky=W)
+    new_window.title('Seat Allotment')
+    new_window.geometry("500x500")
+
+root=Tk()
+btn=Button(root,text='Driver Details',command=DriverDetails)
+btn.pack(padx=20,pady=20)
+btn1=Button(root,text='Passenger Details',command=PassengerDetails)
+btn1.pack(padx=20,pady=20)
+btn2=Button(root,text='Bus Type',command=BusType)
+btn2.pack(padx=20,pady=20)
+btn3=Button(root,text='Seat Allotment',command=choice)
+btn3.pack(padx=20,pady=20)
+root.geometry('500x500')
+root.title('Bus System')
+root.mainloop()
